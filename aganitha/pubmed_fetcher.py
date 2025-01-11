@@ -3,7 +3,7 @@ import csv
 import re
 from typing import List, Dict, Optional
 
-# Define types for clarity
+
 Paper = Dict[str, Optional[str]]
 
 class PubMedFetcher:
@@ -42,9 +42,9 @@ class PubMedFetcher:
         response = requests.get(self.SUMMARY_URL, params=params)
         response.raise_for_status()
         data = response.json()
-        return self._process_paper_data(data)
+        return self.process_paper_data(data)
 
-    def _process_paper_data(self, data: dict) -> List[Paper]:
+    def process_paper_data(self, data: dict) -> List[Paper]:
         """Processes raw data into the required format."""
         papers = []
         for pmid, details in data.get('result', {}).items():
@@ -73,10 +73,10 @@ class PubMedFetcher:
         """Extracts the email of the corresponding author if available."""
         authors = details.get('authors', [])
         for author in authors:
-            # Assuming the email might be in the author’s affiliation or name field
+           
             if 'email' in author:
                 return author['email']
-            # If not explicitly in the author's data, we can check affiliations
+           
             affiliation = author.get('affiliation', '')
             email_match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', affiliation)
             if email_match:
@@ -95,6 +95,12 @@ class PubMedFetcher:
             ])
             writer.writeheader()
             writer.writerows(papers)
+
+
+
+
+
+
 # import requests
 # import csv
 # import re
