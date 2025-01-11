@@ -18,5 +18,5 @@
 
 3. **Run the program**:
    ```bash
-  poetry install
-  poetry run get-papers-list "cancer AND therapy" -f output.csv
+   poetry install
+   poetry run get-papers-list "cancer AND therapy" -f output.csv
